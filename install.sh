@@ -4,52 +4,52 @@ set -e
 # ============================
 # Termux setup
 # ============================
-echo ">>> [Termux] Updating packages..."
+echo -e "\033[32m>>> [Termux] Updating packages...\033[0m"
 pkg upgrade -y -o Dpkg::Options::="--force-confnew"
 
-echo ">>> [Termux] Installing proot and proot-distro..."
+echo -e "\033[32m>>> [Termux] Installing proot and proot-distro...\033[0m"
 pkg install proot proot-distro -y
 
 if [ -d "$PREFIX/var/lib/proot-distro/containers/debian" ]; then
-    echo ">>> [Termux] Debian already installed — skipping install."
+    echo -e "\033[32m>>> [Termux] Debian already installed — skipping install.\033[0m"
 else
-    echo ">>> [Termux] Installing Debian..."
+    echo -e "\033[32m>>> [Termux] Installing Debian...\033[0m"
     proot-distro install debian
 fi
 
 # ============================
 # Debian setup (inside proot)
 # ============================
-echo ">>> Entering Debian and running setup..."
+echo -e "\033[32m>>> Entering Debian and running setup...\033[0m"
 
 proot-distro login debian -- bash -c '
 set -e
 
-echo ">>> [Debian] Updating packages..."
+echo -e "\033[32m>>> [Debian] Updating packages...\033[0m"
 apt update
 apt upgrade -y -o Dpkg::Options::="--force-confnew"
 apt install wget -y
 
-echo ">>> [Debian] Installing arduino-cli..."
+echo -e "\033[32m>>> [Debian] Installing arduino-cli...\033[0m"
 wget -O arduino-cli.deb https://github.com/arduino/arduino-cli/releases/download/v1.5.2-rc.1/arduino-cli_1.5.2-rc.1-1_arm64.deb
 dpkg -i arduino-cli.deb
 apt --fix-broken install -y
 dpkg --configure -a
 
-echo ">>> [Debian] Configuring arduino-cli board manager URLs..."
+echo -e "\033[32m>>> [Debian] Configuring arduino-cli board manager URLs...\033[0m"
 arduino-cli config init
 arduino-cli config add board_manager.additional_urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
 arduino-cli config add board_manager.additional_urls https://arduino.esp8266.com/stable/package_esp8266com_index.json
 arduino-cli core update-index
 
-echo ">>> [Debian] Installing ESP32 core..."
+echo -e "\033[32m>>> [Debian] Installing ESP32 core...\033[0m"
 arduino-cli core install esp32:esp32
 
-echo ">>> [Debian] Installing ESP8266 core..."
+echo -e "\033[32m>>> [Debian] Installing ESP8266 core...\033[0m"
 arduino-cli core install esp8266:esp8266
 
-echo ">>> [Debian] Verifying installed cores..."
+echo -e "\033[32m>>> [Debian] Verifying installed cores...\033[0m"
 arduino-cli core list
 
-echo ">>> [Debian] ESP32 + ESP8266 setup complete!"
+echo -e "\033[32m>>> [Debian] ESP32 + ESP8266 setup complete!\033[0m"
 '
