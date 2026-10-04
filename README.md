@@ -1,6 +1,6 @@
 # Requirements
-- Termux v118.3.9
-- Arm64/Armhf
+- [Termux v0.118.3](https://github.com/termux/termux-app/releases/download/v0.118.3/termux-app_v0.118.3+github-debug_arm64-v8a.apk)
+- Arm64
 
 # Installation
 ```
