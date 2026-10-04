@@ -4,18 +4,18 @@ set -e
 # ============================
 # Termux setup
 # ============================
-echo ">>> Updating Termux packages..."
+echo ">>> [Termux] Updating packages..."
 apt update
 pkg upgrade -y -o Dpkg::Options::="--force-confnew"
 
-echo ">>> Installing proot and proot-distro..."
+echo ">>> [Termux] Installing proot and proot-distro..."
 pkg install proot proot-distro -y
 
-echo ">>> Installing Debian via proot-distro..."
+echo ">>> [Termux] Installing Debian..."
 proot-distro install debian
 
 # ============================
-# Run Debian setup inside proot
+# Debian setup (inside proot)
 # ============================
 echo ">>> Entering Debian and running setup..."
 
@@ -25,27 +25,28 @@ set -e
 echo ">>> [Debian] Updating packages..."
 apt update
 apt upgrade -y -o Dpkg::Options::="--force-confnew"
-apt install wget git -y
+apt install wget -y
 
-echo ">>> [Debian] Downloading arduino-cli..."
+echo ">>> [Debian] Installing arduino-cli..."
 wget -O arduino-cli.deb https://github.com/arduino/arduino-cli/releases/download/v1.5.2-rc.1/arduino-cli_1.5.2-rc.1-1_arm64.deb
 dpkg -i arduino-cli.deb
 apt --fix-broken install -y
 dpkg --configure -a
 
-echo ">>> [Debian] Configuring arduino-cli..."
+echo ">>> [Debian] Configuring arduino-cli board manager URLs..."
 arduino-cli config init
 arduino-cli config add board_manager.additional_urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+arduino-cli config add board_manager.additional_urls https://arduino.esp8266.com/stable/package_esp8266com_index.json
 arduino-cli core update-index
+
+echo ">>> [Debian] Installing ESP32 core..."
 arduino-cli core install esp32:esp32
 
-echo ">>> [Debian] Installing libraries..."
-arduino-cli lib install "ArduinoJson"
-arduino-cli lib install "PubSubClient"
-git clone --depth 1 --branch 1.14.1 https://github.com/adafruit/RTClib.git ~/Arduino/libraries/RTClib
+echo ">>> [Debian] Installing ESP8266 core..."
+arduino-cli core install esp8266:esp8266
 
-echo ">>> [Debian] Compiling firmware..."
-arduino-cli compile --fqbn esp32:esp32:esp32 --clean --output-dir firmware .
+echo ">>> [Debian] Verifying installed cores..."
+arduino-cli core list
 
-echo ">>> [Debian] Setup complete!"
+echo ">>> [Debian] ESP32 + ESP8266 setup complete!"
 '
