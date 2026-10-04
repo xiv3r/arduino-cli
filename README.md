@@ -33,3 +33,8 @@ arduino-cli compile --fqbn esp32:esp32:esp32 --clean --output-dir firmware .
 ```
 arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 --clean --output-dir firmware .
 ```
+
+# Firmware
+```
+ls firmware/
+```
