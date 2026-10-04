@@ -5,14 +5,14 @@
 # Installation
 ```
 apt update
-pkg upgrade -y
+pkg upgrade -y -o Dpkg::Options::="--force-confnew"
 pkg install proot proot-distro -y
 proot-distro install debian
 ```
 - Proot debian cli
 ```
 apt update
-apt upgrade -y
+apt upgrade -y -o Dpkg::Options::="--force-confnew"
 apt install wget -y
 
 wget -O arduino-cli.deb https://github.com/arduino/arduino-cli/releases/download/v1.5.2-rc.1/arduino-cli_1.5.2-rc.1-1_arm64.deb
