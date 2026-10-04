@@ -4,30 +4,23 @@
 
 # Installation
 ```
-apt update
-pkg upgrade -y -o Dpkg::Options::="--force-confnew"
-pkg install proot proot-distro -y
-proot-distro install debian
+apt update && apt install wget -y && wget -qO- https://raw.githubusercontent.com/xiv3r/arduino-cli/refs/heads/main/install.sh | bash
 ```
-- Proot debian cli
-```
-apt update
-apt upgrade -y -o Dpkg::Options::="--force-confnew"
-apt install wget -y
 
-wget -O arduino-cli.deb https://github.com/arduino/arduino-cli/releases/download/v1.5.2-rc.1/arduino-cli_1.5.2-rc.1-1_arm64.deb
-dpkg -i arduino-cli.deb
-apt --fix-broken install -y
-dpkg --configure -a
-        
-arduino-cli config init
-arduino-cli config add board_manager.additional_urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
-arduino-cli core update-index
-arduino-cli core install esp32:esp32
-        
+# Install Libraries 
+- examples
+```
 arduino-cli lib install "ArduinoJson"
 arduino-cli lib install "PubSubClient"
 git clone --depth 1 --branch 1.14.1 https://github.com/adafruit/RTClib.git ~/Arduino/libraries/RTClib
+```
 
+# Compile the sketch
+- ESP32
+```
 arduino-cli compile --fqbn esp32:esp32:esp32 --clean --output-dir firmware .
+```
+- ESP8266
+```
+arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 --clean --output-dir firmware .
 ```
