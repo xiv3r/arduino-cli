@@ -28,7 +28,7 @@ set -e
 echo ">>> [Debian] Updating packages..."
 apt update
 apt upgrade -y -o Dpkg::Options::="--force-confnew"
-apt install wget -y
+apt install git wget -y
 
 echo ">>> [Debian] Installing arduino-cli..."
 wget -O arduino-cli.deb https://github.com/arduino/arduino-cli/releases/download/v1.5.2-rc.1/arduino-cli_1.5.2-rc.1-1_arm64.deb
