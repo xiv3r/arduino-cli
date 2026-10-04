@@ -10,7 +10,7 @@ pkg upgrade -y -o Dpkg::Options::="--force-confnew"
 echo ">>> [Termux] Installing proot and proot-distro..."
 pkg install proot proot-distro -y
 
-if proot-distro list 2>/dev/null | grep -qi 'debian'; then
+if [ -d "$PREFIX/var/lib/proot-distro/containers/debian" ]; then
     echo ">>> [Termux] Debian already installed — skipping install."
 else
     echo ">>> [Termux] Installing Debian..."
