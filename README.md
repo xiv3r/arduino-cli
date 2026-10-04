@@ -15,6 +15,15 @@ arduino-cli lib install "PubSubClient"
 git clone --depth 1 --branch 1.14.1 https://github.com/adafruit/RTClib.git ~/Arduino/libraries/RTClib
 ```
 
+# Create a Sketch
+```
+nano sketch.ino
+```
+- adopt the root directory name for the sketch to compile the sketch inside the root/
+```
+mv sketch.ino root.ino
+```
+
 # Compile the sketch
 - ESP32
 ```
