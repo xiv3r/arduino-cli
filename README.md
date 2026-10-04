@@ -4,7 +4,7 @@
 
 # Installation
 ```
-apt update && apt install wget -y && wget -qO- https://raw.githubusercontent.com/xiv3r/arduino-cli/refs/heads/main/install.sh | bash
+apt update && pkg install wget -y && wget -qO- https://raw.githubusercontent.com/xiv3r/arduino-cli/refs/heads/main/install.sh | bash
 ```
 
 # Install Libraries 
