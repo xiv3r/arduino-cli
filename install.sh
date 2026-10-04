@@ -5,7 +5,6 @@ set -e
 # Termux setup
 # ============================
 echo ">>> [Termux] Updating packages..."
-apt update
 pkg upgrade -y -o Dpkg::Options::="--force-confnew"
 
 echo ">>> [Termux] Installing proot and proot-distro..."
